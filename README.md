@@ -1,8 +1,9 @@
 This repo is the code from Natalie Masse Hooper's tutorial: "How to write an integration test in Flutter" detailed at
 [http://cogitas.net/write-integration-test-flutter/](http://cogitas.net/write-integration-test-flutter/).
 
-Intefration tests, as Flutter would have it, are UI-clicking tests that are a high-confidence test of
-your solution in an emulator. Once running they are fast enough, but to get there they
+Integration tests, as Flutter would have it, are UI-clicking tests that are a high-confidence test of
+your solution in an emulator. Once running they are fast enough, but to get there they take a little
+while to launch the SUT in QEMU.
 
 ## Installing Flutter's bits and pieces:
 
@@ -25,7 +26,10 @@ flutter drive --target=test_driver/list_content.dart
 If that complains about there being no emulator, try `flutter emulators` and following its
 instructions, then trying the above again.
 
-There are three tests in `test_driver/list_content_test.dart`
+For example, `flutter emulators --launch Galaxy_Nexus_API_27` brought up QEMU with an Android
+emulator for me. That in itself took a few minutes first time for me.
+
+Back to Natalie's tests. There are three in `test_driver/list_content_test.dart`:
 
 1. Verify empty list message is shown
 2. Tap show stores button, verify stores shown
@@ -40,9 +44,11 @@ in QEMU is glacially slow. Once 'up', the execution speed of FlutterDriver tests
 enough for you to feel fairly pleased with the choice of stack. I wish that delay until first test were
 3 seconds though.
 
-Here's the build running twice:
+Here's the Android build running twice (click to go to Youtube):
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/6o1TiBGg81Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![That Flutter Driver Tutorial](https://user-images.githubusercontent.com/82182/44264802-52ed9d00-a1fa-11e8-99fc-c76ef78cb989.png)](https://www.youtube.com/watch?v=6o1TiBGg81Y "That Flutter Driver Tutorial")
 
 First time (49 seconds) is after some whitespace changes to the app and the tests. The second time is 23
 seconds and immediately after the first one, so no whitespace changes and therefore no compile stage.
+
+The iOS build is about 70 seconds first time, and 40 seconds for subsequent ones, and looks much the same.
